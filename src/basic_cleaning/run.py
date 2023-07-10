@@ -79,14 +79,14 @@ if __name__ == "__main__":
 
     parser.add_argument(
         "--min_price",
-        type=int,
+        type=float,
         help="minimum threshold value for price of airbnb",
         required=True
     )
 
     parser.add_argument(
         "--max_price",
-        type=int,
+        type=float,
         help="maximum threshold value for price of airbnb",
         required=True
     )
