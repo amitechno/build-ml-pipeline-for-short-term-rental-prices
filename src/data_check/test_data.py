@@ -4,6 +4,15 @@ import scipy.stats
 
 
 def test_column_names(data):
+    """
+    Test if the columns in the provided data match the expected column names.
+
+    Args:
+        data (pd.DataFrame): Input DataFrame to be tested.
+
+    Raises:
+        AssertionError: If the columns in the data do not match the expected column names.
+    """
 
     expected_colums = [
         "id",
@@ -31,6 +40,15 @@ def test_column_names(data):
 
 
 def test_neighborhood_names(data):
+    """
+    Test if the unique values in the 'neighbourhood_group' column match the known neighborhood names.
+
+    Args:
+        data (pd.DataFrame): Input DataFrame to be tested.
+
+    Raises:
+        AssertionError: If the unique values in the 'neighbourhood_group' column do not match the known names.
+    """
 
     known_names = ["Bronx", "Brooklyn", "Manhattan", "Queens", "Staten Island"]
 
@@ -42,17 +60,34 @@ def test_neighborhood_names(data):
 
 def test_proper_boundaries(data: pd.DataFrame):
     """
-    Test proper longitude and latitude boundaries for properties in and around NYC
+    Test if the latitude and longitude values in the data fall within the proper boundaries for properties in and around NYC.
+
+    Args:
+        data (pd.DataFrame): Input DataFrame to be tested.
+
+    Raises:
+        AssertionError: If any latitude or longitude values fall outside the specified boundaries.
     """
-    idx = data['longitude'].between(-74.25, -73.50) & data['latitude'].between(40.5, 41.2)
+    idx = data['longitude'].between(-74.25, - \
+                                    73.50) & data['latitude'].between(40.5, 41.2)
 
     assert np.sum(~idx) == 0
 
 
-def test_similar_neigh_distrib(data: pd.DataFrame, ref_data: pd.DataFrame, kl_threshold: float):
+def test_similar_neigh_distrib(
+        data: pd.DataFrame,
+        ref_data: pd.DataFrame,
+        kl_threshold: float):
     """
-    Apply a threshold on the KL divergence to detect if the distribution of the new data is
-    significantly different than that of the reference dataset
+    Test if the distribution of the 'neighbourhood_group' column in the new data is significantly similar to the reference dataset.
+
+    Args:
+        data (pd.DataFrame): New data to be tested.
+        ref_data (pd.DataFrame): Reference dataset for comparison.
+        kl_threshold (float): Threshold value for the Kullback-Leibler divergence.
+
+    Raises:
+        AssertionError: If the KL divergence between the distributions exceeds the specified threshold.
     """
     dist1 = data['neighbourhood_group'].value_counts().sort_index()
     dist2 = ref_data['neighbourhood_group'].value_counts().sort_index()
@@ -60,13 +95,29 @@ def test_similar_neigh_distrib(data: pd.DataFrame, ref_data: pd.DataFrame, kl_th
     assert scipy.stats.entropy(dist1, dist2, base=2) < kl_threshold
 
 
-########################################################
-# Implement here test_row_count and test_price_range   #
-########################################################
-
 def test_row_count(data):
+    """
+    Test if the number of rows in the data falls within the expected range.
+
+    Args:
+        data (pd.DataFrame): Input DataFrame to be tested.
+
+    Raises:
+        AssertionError: If the number of rows in the data is outside the expected range.
+    """
     assert 15000 < data.shape[0] < 1000000
 
 
 def test_price_range(data, min_price, max_price):
+    """
+    Test if all the prices in the 'price' column of the data fall within the specified range.
+
+    Args:
+        data (pd.DataFrame): Input DataFrame to be tested.
+        min_price (float): Minimum price value.
+        max_price (float): Maximum price value.
+
+    Raises:
+        AssertionError: If any price values fall outside the specified range.
+    """
     assert data['price'].between(min_price, max_price).all()

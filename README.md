@@ -387,7 +387,7 @@ with the cleaned data:
 5. Run the pipeline. In W&B, we can see the new artifact type `clean_sample` and within it the 
    `clean_sample.csv` artifact
 
-![Alt text](../../../screenshots/data_cleaning.jpg?raw=true "data_cleaning- W&B")
+![Screenshot](./screenshots/data_cleaning.jpg)
 
 ### Data testing
 After the cleaning, it is a good practice to put some tests that verify that the data does not
@@ -487,7 +487,7 @@ Go to the artifact section of the selected job, and select the
 `model_export` output artifact.  Add a ``prod`` tag to it to mark it as 
 "production ready".
 
-![Alt text](../../../screenshots/model.png?raw=true "data_cleaning- W&B")
+![Screenshot](./screenshots/model.png)
 
 ### Test
 ``test_regression_model`` is used to test the production model against the
@@ -505,7 +505,7 @@ We have implemented the call to this component in the `main.py` file. Artifact u
 You can now go to W&B, go the Artifacts section, select the model export artifact then click on the
 ``Lineage `` tab. You will see a representation of your pipeline.
 
-![Alt text](../../../screenshots/lineage.png?raw=true "data_cleaning- W&B")
+![Screenshot](./screenshots/lineage.png)
 
 ### Release the pipeline
 Create a release from latest code commit as release ``1.0.0``:
