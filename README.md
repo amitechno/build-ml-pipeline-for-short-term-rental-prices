@@ -502,8 +502,8 @@ We have implemented the call to this component in the `main.py` file. Artifact u
 ```
 
 ### Visualize the pipeline
-You can now go to W&B, go the Artifacts section, select the model export artifact then click on the
-``Lineage `` tab. You will see a representation of your pipeline.
+We can  view representation of the pipeline in W&B. Go to the Artifacts section, select the model export artifact then click on the
+``Lineage `` tab.
 
 ![Screenshot](./screenshots/lineage.png)
 
@@ -512,8 +512,6 @@ Create a release from latest code commit as release ``1.0.0``:
 
 ![tag the release](images/tag-release-github.png "tag the release")
 
-If you find problems in the release, fix them and then make a new release like ``1.0.1``, ``1.0.2``
-and so on.
 
 ### Train the model on a new data sample
 
@@ -532,6 +530,9 @@ train the model on a new sample of data that our company received (``sample2.csv
 But, wait! It failed! The test ``test_proper_boundaries`` failed, apparently there is one point
 which is outside of the boundaries. This is an example of a "successful failure", i.e., a test that
 did its job and caught an unexpected event in the pipeline (in this case, in the data).
+
+![Screenshot](./screenshots/1stresult.png)
+
 
 We have then fix this by adding these two lines in the ``basic_cleaning`` step just before saving the output 
 to the csv file with `df.to_csv`:
