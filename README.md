@@ -290,7 +290,7 @@ pipelines, during the data exploration phase.
 8. Save the notebook, then close it (File -> Close and Halt). In the main Jupyter notebook page, click Quit in the
    upper right to stop Jupyter. This will also terminate the mlflow run. DO NOT USE CRTL-C
 
-![eda - Jupyter Notebook](Users/amitsharma/Desktop/eda.jpg)
+![Alt text](../../../screenshots/eda.jpg"Title")
 
 ## Data cleaning
 
@@ -387,7 +387,7 @@ with the cleaned data:
 5. Run the pipeline. In W&B, we can see the new artifact type `clean_sample` and within it the 
    `clean_sample.csv` artifact
 
-![Alt text](/Users/amitsharma/Desktop/data_cleaning.jpg?raw=true "data_cleaning- W&B")
+![Alt text](../../../screenshots/data_cleaning.jpg?raw=true "data_cleaning- W&B")
 
 ### Data testing
 After the cleaning, it is a good practice to put some tests that verify that the data does not
@@ -401,7 +401,7 @@ artifact tab. Click on "clean_sample", then on the version with the ``latest`` t
 last one we produced in the previous step. Add a tag ``reference`` to it by clicking the "+"
 in the Aliases section on the right:
 
-![reference tag](images/wandb-tag-data-test.png "adding a reference tag")
+![Alt text](images/wandb-tag-data-test.png "adding a reference tag")
  
 Now we are ready to add some tests. We have created a ``data_tests`` step in
 
@@ -487,7 +487,7 @@ Go to the artifact section of the selected job, and select the
 `model_export` output artifact.  Add a ``prod`` tag to it to mark it as 
 "production ready".
 
-![Alt text](/Users/amitsharma/Desktop/model.jpg?raw=true "data_cleaning- W&B")
+![Alt text](../../../screenshots/model.png?raw=true "data_cleaning- W&B")
 
 ### Test
 ``test_regression_model`` is used to test the production model against the
@@ -505,7 +505,7 @@ We have implemented the call to this component in the `main.py` file. Artifact u
 You can now go to W&B, go the Artifacts section, select the model export artifact then click on the
 ``Lineage `` tab. You will see a representation of your pipeline.
 
-![Alt text](/Users/amitsharma/Desktop/lineage.jpg?raw=true "data_cleaning- W&B")
+![Alt text](../../../screenshots/lineage.png?raw=true "data_cleaning- W&B")
 
 ### Release the pipeline
 Create a release from latest code commit as release ``1.0.0``:
