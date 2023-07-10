@@ -1,10 +1,22 @@
 # Build an ML Pipeline for Short-Term Rental Prices in NYC
-You are working for a property management company renting rooms and properties for short periods of 
-time on various rental platforms. You need to estimate the typical price for a given property based 
-on the price of similar properties. Your company receives new data in bulk every week. The model needs 
-to be retrained with the same cadence, necessitating an end-to-end pipeline that can be reused.
 
-In this project you will build such a pipeline.
+## Introduction
+
+This project focuses on developing an end-to-end machine learning pipeline to estimate the typical price of short-term rental properties in NYC. As a property management company renting rooms and properties on various rental platforms, it is crucial to accurately predict property prices based on similar properties in the market.
+
+The pipeline will handle the weekly influx of new data and facilitate the retraining of the machine learning model on a regular basis. This ensures that the model stays up-to-date and can provide reliable price estimates for the given properties.
+
+## Project Objectives
+
+- Develop a robust and reusable machine learning pipeline for estimating short-term rental prices.
+- Process and analyze the incoming bulk data to identify relevant features and patterns.
+- Build a machine learning model that can accurately predict property prices based on similar properties.
+- Implement automation for regular model retraining to keep the predictions up-to-date.
+- Provide an easy-to-use interface or API to interact with the model and obtain price estimates efficiently.
+
+By achieving these objectives, we aim to streamline the process of estimating short-term rental prices, improve the accuracy of the predictions, and enable efficient decision-making for our property management company.
+
+
 
 ## Table of contents
 
@@ -209,13 +221,9 @@ a significantly-better model for this dataset.
 
 ### Exploratory Data Analysis (EDA)
 The scope of this section is to get an idea of how the process of an EDA works in the context of
-pipelines, during the data exploration phase. In a real scenario you would spend a lot more time
-in this phase, but here we are going to do the bare minimum.
+pipelines, during the data exploration phase. 
 
-NOTE: remember to add some markdown cells explaining what you are about to do, so that the
-notebook can be understood by other people like your colleagues
-
-1. The ``main.py`` script already comes with the download step implemented. Run the pipeline to 
+1. The ``main.py`` script has a download step implemented. Run the pipeline to 
    get a sample of the data. The pipeline will also upload it to Weights & Biases:
    
   ```bash
@@ -225,7 +233,7 @@ notebook can be understood by other people like your colleagues
   You will see a message similar to:
 
   ```
-  2021-03-12 15:44:39,840 Uploading sample.csv to Weights & Biases
+  2023-07-10 15:44:39,840 Uploading sample.csv to Weights & Biases
   ```
   This tells you that the data is going to be stored in W&B as the artifact named ``sample.csv``.
 
@@ -264,7 +272,7 @@ notebook can be understood by other people like your colleagues
    some very high prices. After talking to your stakeholders, you decide to consider from a minimum of $ 10 to a 
    maximum of $ 350 per night.
    
-5. Fix some of the little problems we have found in the data with the following code:
+5. Fixed the little problems that we have found in the data with the following code:
     
    ```python
    # Drop outliers
@@ -282,14 +290,16 @@ notebook can be understood by other people like your colleagues
 8. Save the notebook, then close it (File -> Close and Halt). In the main Jupyter notebook page, click Quit in the
    upper right to stop Jupyter. This will also terminate the mlflow run. DO NOT USE CRTL-C
 
+![Alt text](/Users/amitsharma/Desktop/eda.jpg?raw=true "eda.py - Jupyter Notebook")
+
 ## Data cleaning
 
 Now we transfer the data processing we have done as part of the EDA to a new ``basic_cleaning`` 
-step that starts from the ``sample.csv`` artifact and create a new artifact ``clean_sample.csv`` 
+step that starts from the ``sample.csv`` artifact and created a new artifact ``clean_sample.csv`` 
 with the cleaned data:
 
-1. Make sure you are in the root directory of the starter kit, then create a stub 
-   for the new step. The new step should accept the parameters ``input_artifact`` 
+1. From the root directory of the starter kit, created a stub 
+   for the new step. The new step accepted the parameters ``input_artifact`` 
    (the input artifact), ``output_artifact`` (the name for the output artifact), 
    ``output_type`` (the type for the output artifact), ``output_description`` 
    (a description for the output artifact), ``min_price`` (the minimum price to consider)
@@ -304,26 +314,25 @@ with the cleaned data:
    long_description [An example of a step using MLflow and Weights & Biases]: Download from W&B the raw dataset and apply some basic data cleaning, exporting the result to a new artifact
    parameters [parameter1,parameter2]: input_artifact,output_artifact,output_type,output_description,min_price,max_price
    ```
-   This will create a directory ``src/basic_cleaning`` containing the basic files required 
+   This created a directory ``src/basic_cleaning`` containing the basic files required 
    for a MLflow step: ``conda.yml``, ``MLproject`` and the script (which we named ``run.py``).
    
-2. Modify the ``src/basic_cleaning/run.py`` script and the ML project script by filling the 
+2. Modified the ``src/basic_cleaning/run.py`` script and the ML project script by filling the 
    missing information about parameters (note the 
-   comments like ``INSERT TYPE HERE`` and ``INSERT DESCRIPTION HERE``). All parameters should be
-   of type ``str`` except ``min_price`` and ``max_price`` that should be ``float``.
+   comments like ``INSERT TYPE HERE`` and ``INSERT DESCRIPTION HERE``). All parameters are of
+   type ``str`` except ``min_price`` and ``max_price`` that should be ``float``.
    
-3. Implement in the section marked ```# YOUR CODE HERE     #``` the steps we 
-   have implemented in the notebook, including downloading the data from W&B. 
-   Remember to use the ``logger`` instance already provided to print meaningful messages to screen. 
+3. Added steps that we implemented in the notebook, including downloading the data from W&B. 
+   We used the ``logger`` instance to print meaningful messages to screen. 
    
-   Make sure to use ``args.min_price`` and ``args.max_price`` when dropping the outliers 
+   We used ``args.min_price`` and ``args.max_price`` when dropping the outliers 
    (instead of  hard-coding the values like we did in the notebook).
-   Save the results to a CSV file called ``clean_sample.csv`` 
+   The results were saved to a CSV file called ``clean_sample.csv`` 
    (``df.to_csv("clean_sample.csv", index=False)``)
-   **_NOTE_**: Remember to use ``index=False`` when saving to CSV, otherwise the data checks in
+   **_NOTE_**: We used ``index=False`` when saving to CSV, otherwise the data checks in
                the next step might fail because there will be an extra ``index`` column
    
-   Then upload it to W&B using:
+   Then uploaded it to W&B using:
    
    ```python
    artifact = wandb.Artifact(
@@ -335,23 +344,23 @@ with the cleaned data:
     run.log_artifact(artifact)
    ```
    
-   **_REMEMBER__**: Whenever you are using a library (like pandas), you MUST add it as 
+   **_REMEMBER__**: Whenever we are using a library (like pandas), we MUST add it as 
                     dependency in the ``conda.yml`` file. For example, here we are using pandas 
                     so we must add it to ``conda.yml`` file, including a version:
    ```yaml
    dependencies:
-     - pip=20.3.3
-     - pandas=1.2.3
+     - pip=23.1.2
+     - pandas=2.0.2
      - pip:
-         - wandb==0.10.31
+         - wandb==0.15.4
    ```
    
-4. Add the ``basic_cleaning`` step to the pipeline (the ``main.py`` file):
+4. Added the ``basic_cleaning`` step to the pipeline (the ``main.py`` file):
 
    **_WARNING:_**: please note how the path to the step is constructed: 
                    ``os.path.join(hydra.utils.get_original_cwd(), "src", "basic_cleaning")``.
    This is necessary because Hydra executes the script in a different directory than the root
-   of the starter kit. You will have to do the same for every step you are going to add to the 
+   of the starter kit.  We have done the same for every step we added to the 
    pipeline.
    
    **_NOTE_**: Remember that when you refer to an artifact stored on W&B, you MUST specify a 
@@ -375,8 +384,10 @@ with the cleaned data:
             },
         )
    ```
-5. Run the pipeline. If you go to W&B, you will see the new artifact type `clean_sample` and within it the 
+5. Run the pipeline. In W&B, we can see the new artifact type `clean_sample` and within it the 
    `clean_sample.csv` artifact
+
+![Alt text](/Users/amitsharma/Desktop/data_cleaning.jpg?raw=true "data_cleaning- W&B")
 
 ### Data testing
 After the cleaning, it is a good practice to put some tests that verify that the data does not
@@ -392,9 +403,9 @@ in the Aliases section on the right:
 
 ![reference tag](images/wandb-tag-data-test.png "adding a reference tag")
  
-Now we are ready to add some tests. In the starter kit you can find a ``data_tests`` step
-that you need to complete. Let's start by appending to 
-``src/data_check/test_data.py`` the following test:
+Now we are ready to add some tests. We have created a ``data_tests`` step in
+
+``src/data_check/test_data.py`` and added the following test:
   
 ```python
 def test_row_count(data):
@@ -402,17 +413,15 @@ def test_row_count(data):
 ```
 which checks that the size of the dataset is reasonable (not too small, not too large).
 
-Then, add another test ``test_price_range(data, min_price, max_price)`` that checks that 
+Another test is ``test_price_range(data, min_price, max_price)`` that checks that 
 the price range is between ``min_price`` and ``max_price`` 
-(hint: you can use the ``data['price'].between(...)`` method). Also, remember that we are using closures, so the
-name of the variables that your test takes in MUST BE exactly `data`, `min_price` and `max_price`.
 
-Now add the `data_check` component to the main file, so that it gets executed as part of our
-pipeline. Use ``clean_sample.csv:latest`` as ``csv`` and ``clean_sample.csv:reference`` as 
+Added the `data_check` component to the main file, so that it gets executed as part of our
+pipeline. Used ``clean_sample.csv:latest`` as ``csv`` and ``clean_sample.csv:reference`` as 
 ``ref``. Right now they point to the same file, but later on they will not: we will fetch another sample of data
 and therefore the `latest` tag will point to that. 
-Also, use the configuration for the other parameters. For example, 
-use ``config["data_check"]["kl_threshold"]`` for the ``kl_threshold`` parameter. 
+Also, we have used the configuration for the parameters that are used by the tests. For example, 
+``config["data_check"]["kl_threshold"]`` for the ``kl_threshold`` parameter. 
 
 Then run the pipeline and make sure the tests are executed and that they pass. Remember that you can run just this
 step with:
@@ -421,16 +430,9 @@ step with:
 > mlflow run . -P steps="data_check"
 ```
 
-You can safely ignore the following DeprecationWarning if you see it:
-
-```
-DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' 
-is deprecated since Python 3.3, and in 3.10 it will stop working
-```
-
 ### Data splitting
-Use the provided component called ``train_val_test_split`` to extract and segregate the test set. 
-Add it to the pipeline then run the pipeline. As usual, use the configuration for the parameters like `test_size`,
+Created a component called ``train_val_test_split`` to extract and segregate the test set. 
+Added it to the pipeline then ran the pipeline. As usual, use the configuration for the parameters like `test_size`,
 `random_seed` and `stratify_by`. Look at the `modeling` section in the config file.
 
 **_HINT_**: The path to the step can
@@ -441,43 +443,35 @@ You can see the parameters accepted by this step [here](https://github.com/udaci
 After you execute, you will see something like:
 
 ```
-2021-03-15 01:36:44,818 Uploading trainval_data.csv dataset
-2021-03-15 01:36:47,958 Uploading test_data.csv dataset
+2023-07-10 01:36:44,818 Uploading trainval_data.csv dataset
+2023-07-10 01:36:47,958 Uploading test_data.csv dataset
 ```
 in the log. This tells you that the script is uploading 2 new datasets: ``trainval_data.csv`` and ``test_data.csv``.
 
 ### Train Random Forest
-Complete the script ``src/train_random_forest/run.py``. All the places where you need to insert code are marked by
-a `# YOUR CODE HERE` comment and are delimited by two signs like `######################################`. You can
-find further instructions in the file.
+We have build a Random Forest Classifier using the Scikit-Learn library of Python. The Random forest or Random Decision Forest is a supervised Machine learning algorithm used for classification, regression, and other tasks using decision trees.
+The Random forest classifier creates a set of decision trees from a randomly selected subset of the training set. It is basically a set of decision trees (DT) from a randomly selected subset of the training set and then It collects the votes from different decision trees to decide the final prediction.
 
-Once you are done, add the step to ``main.py``. Use the name ``random_forest_export`` as ``output_artifact``.
+This has been implemented in  ``src/train_random_forest/run.py``. 
 
-**_NOTE_**: the main.py file already provides a variable ``rf_config`` to be passed as the
-            ``rf_config`` parameter.
+Then we added the step to ``main.py`` and created ``random_forest_export`` as ``output_artifact``.
+
 
 ### Optimize hyperparameters
-Re-run the entire pipeline varying the hyperparameters of the Random Forest model. This can be
-accomplished easily by exploiting the Hydra configuration system. Use the multi-run feature (adding the `-m` option 
+ We have re-run the entire pipeline varying the hyperparameters of the Random Forest model. This has been
+accomplished by exploiting the Hydra configuration system. By using the multi-run feature (adding the `-m` option 
 at the end of the `hydra_options` specification), and try setting the parameter `modeling.max_tfidf_features` to 10, 15
 and 30, and the `modeling.random_forest.max_features` to 0.1, 0.33, 0.5, 0.75, 1.
 
-HINT: if you don't remember the hydra syntax, you can take inspiration from this is example, where we vary 
-two other parameters (this is NOT the solution to this step):
 ```bash
 > mlflow run . \
   -P steps=train_random_forest \
-  -P hydra_options="modeling.random_forest.max_depth=10,50,100 modeling.random_forest.n_estimators=100,200,500 -m"
+  -P hydra_options="modeling.max_tfidf_features=10,15,30 mmodeling.random_forest.max_features=0.1,0.33,0.5,0.75,1 -m"
 ```
-you can change this command line to accomplish your task.
 
-While running this simple experimentation is enough to complete this project, you can also explore more and see if 
-you can improve the performance. You can also look at the Hydra documentation for even more ways to do hyperparameters 
-optimization. Hydra is very powerful, and allows even to use things like Bayesian optimization without any change
-to the pipeline itself.
 
 ### Select the best model
-Go to W&B and select the best performing model. We are going to consider the Mean Absolute Error as our target metric,
+In W&B we selected the best performing model. We considered the Mean Absolute Error as our target metric,
 so we are going to choose the model with the lowest MAE.
 
 ![wandb](images/wandb_select_best.gif "wandb")
@@ -489,27 +483,19 @@ so we are going to choose the model with the lowest MAE.
             on the three little dots, then select "Sort asc". This will sort the runs by ascending
             Mean Absolute Error (best result at the top).
 
-When you have found the best job, click on its name. If you are interested you can explore some of the things we
-tracked, for example the feature importance plot. You should see that the `name` feature has quite a bit of importance
-(depending on your exact choice of parameters it might be the most important feature or close to that). The `name`
-column contains the title of the post on the rental website. Our pipeline performs a very primitive NLP analysis 
-based on [TF-IDF](https://monkeylearn.com/blog/what-is-tf-idf/) (term frequency-inverse document frequency) and can 
-extract a good amount of information from the feature.
-
 Go to the artifact section of the selected job, and select the 
 `model_export` output artifact.  Add a ``prod`` tag to it to mark it as 
 "production ready".
 
-### Test
-Use the provided step ``test_regression_model`` to test your production model against the
-test set. Implement the call to this component in the `main.py` file. As usual you can see the parameters in the
-corresponding [MLproject](https://github.com/udacity/build-ml-pipeline-for-short-term-rental-prices/blob/main/components/test_regression_model/MLproject) 
-file. Use the artifact `random_forest_export:prod` for the parameter `mlflow_model` and the test artifact
-`test_data.csv:latest` as `test_artifact`.
+![Alt text](/Users/amitsharma/Desktop/model.jpg?raw=true "data_cleaning- W&B")
 
-**NOTE**: This step is NOT run by default when you run the pipeline. In fact, it needs the manual step
-of promoting a model to ``prod`` before it can complete successfully. Therefore, you have to
-activate it explicitly on the command line:
+### Test
+``test_regression_model`` is used to test the production model against the
+test set. The provided code performs testing on a machine learning model, specifically the best model tagged with the "prod" tag. The purpose of this testing is to evaluate the model's performance against a test dataset. 
+
+We have implemented the call to this component in the `main.py` file. Artifact used are  `random_forest_export:prod` for the parameter `mlflow_model` and the test artifact `test_data.csv:latest` as `test_artifact`.
+
+ 
 
 ```bash
 > mlflow run . -P steps=test_regression_model
@@ -517,15 +503,12 @@ activate it explicitly on the command line:
 
 ### Visualize the pipeline
 You can now go to W&B, go the Artifacts section, select the model export artifact then click on the
-``Graph view`` tab. You will see a representation of your pipeline.
+``Lineage `` tab. You will see a representation of your pipeline.
+
+![Alt text](/Users/amitsharma/Desktop/lineage.jpg?raw=true "data_cleaning- W&B")
 
 ### Release the pipeline
-First copy the best hyper parameters you found in your ``configuration.yml`` so they become the
-default values. Then, go to your repository on GitHub and make a release. 
-If you need a refresher, here are some [instructions](https://docs.github.com/en/github/administering-a-repository/managing-releases-in-a-repository#creating-a-release)
-on how to release on GitHub.
-
-Call the release ``1.0.0``:
+Create a release from latest code commit as release ``1.0.0``:
 
 ![tag the release](images/tag-release-github.png "tag the release")
 
@@ -534,10 +517,9 @@ and so on.
 
 ### Train the model on a new data sample
 
-Let's now test that we can run the release using ``mlflow`` without any other pre-requisite. We will
+We have tested that we can run the release using ``mlflow`` without any other pre-requisite. We will
 train the model on a new sample of data that our company received (``sample2.csv``):
 
-(be ready for a surprise, keep reading even if the command fails)
 ```bash
 > mlflow run https://github.com/[your github username]/build-ml-pipeline-for-short-term-rental-prices.git \
              -v [the version you want to use, like 1.0.0] \
@@ -551,7 +533,7 @@ But, wait! It failed! The test ``test_proper_boundaries`` failed, apparently the
 which is outside of the boundaries. This is an example of a "successful failure", i.e., a test that
 did its job and caught an unexpected event in the pipeline (in this case, in the data).
 
-You can fix this by adding these two lines in the ``basic_cleaning`` step just before saving the output 
+We have then fix this by adding these two lines in the ``basic_cleaning`` step just before saving the output 
 to the csv file with `df.to_csv`:
 
 ```python
@@ -560,9 +542,7 @@ df = df[idx].copy()
 ```
 This will drop rows in the dataset that are not in the proper geolocation. 
 
-Then commit your change, make a new release (for example ``1.0.1``) and retry (of course you need to use 
-``-v 1.0.1`` when calling mlflow this time). Now the run should succeed and voit la', 
-you have trained your new model on the new data.
+Then commit your change, and created a new release (for example ``1.0.1``) .
 
 ## License
 
