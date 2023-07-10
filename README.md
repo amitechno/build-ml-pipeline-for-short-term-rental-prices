@@ -545,7 +545,7 @@ This will drop rows in the dataset that are not in the proper geolocation.
 
 We have then commited the change, and created a new release  ``1.0.1``).
 
-![Screenshot](./screenshots/2ndresult.png
+![Screenshot](./screenshots/2ndresult.png)
 
 ## License
 
