@@ -290,7 +290,7 @@ pipelines, during the data exploration phase.
 8. Save the notebook, then close it (File -> Close and Halt). In the main Jupyter notebook page, click Quit in the
    upper right to stop Jupyter. This will also terminate the mlflow run. DO NOT USE CRTL-C
 
-![Alt text](../../../screenshots/eda.jpg"Title")
+<img src ="/Users/amitsharma/Desktop/eda.jpg" >
 
 ## Data cleaning
 
