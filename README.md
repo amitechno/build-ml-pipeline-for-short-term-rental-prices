@@ -538,12 +538,14 @@ We have then fix this by adding these two lines in the ``basic_cleaning`` step j
 to the csv file with `df.to_csv`:
 
 ```python
-idx = df['longitude'].between(-74.25, -73.50) & df['latitude'].between(40.5, 41.2)
-df = df[idx].copy()
+idv = df['longitude'].between(-74.25, -73.50) & df['latitude'].between(40.5, 41.2)
+df = df[idv].copy()
 ```
 This will drop rows in the dataset that are not in the proper geolocation. 
 
-Then commit your change, and created a new release (for example ``1.0.1``) .
+We have then commited the change, and created a new release  ``1.0.1``).
+
+![Screenshot](./screenshots/2ndresult.png
 
 ## License
 
